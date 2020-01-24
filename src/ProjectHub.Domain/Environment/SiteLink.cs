@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectHub.Domain.Environment
 {
@@ -33,5 +34,7 @@ namespace ProjectHub.Domain.Environment
         /// The environment current link belong to.
         /// </summary>
         public Environment Environment { get; set; }
+
+        public List<SiteLinkHashTag> SiteLinkHashTags { get; set; }
     }
 }

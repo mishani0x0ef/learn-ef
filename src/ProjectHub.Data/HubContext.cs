@@ -14,8 +14,9 @@ namespace ProjectHub.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // TODO: add relations logic here if needed. MR
-            base.OnModelCreating(modelBuilder);
+            modelBuilder
+                .Entity<SiteLinkHashTag>()
+                .HasKey(sh => new { sh.SiteLinkId, sh.HashTagId });
         }
     }
 }
