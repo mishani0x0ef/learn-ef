@@ -29,7 +29,9 @@ namespace ProjectHub.Api
             });
 
             services.AddDbContext<HubContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("HubConnection"))
+                options => options
+                    .EnableSensitiveDataLogging()
+                    .UseSqlServer(Configuration.GetConnectionString("HubConnection"))
             );
         }
 
