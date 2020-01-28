@@ -19,12 +19,19 @@ namespace ProjectHub.Api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Gets a list of all available environments.
+        /// </summary>
         [HttpGet]
         public async Task<IEnumerable<Environment>> GetEnvironments()
         {
             return await _context.Environments.ToListAsync();
         }
 
+        /// <summary>
+        /// Get a specific environment by it's id.
+        /// </summary>
+        /// <param name="environmentId">ID of the environment to retrieve.</param>
         [HttpGet("{environmentId}")]
         public async Task<Environment> GetEnvironment(int environmentId)
         {

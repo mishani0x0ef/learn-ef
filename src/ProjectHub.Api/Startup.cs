@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using ProjectHub.Data;
+using System.IO;
 
 namespace ProjectHub.Api
 {
@@ -29,10 +30,22 @@ namespace ProjectHub.Api
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
 
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Project Hub", Version = "v1" });
-            });
+            services
+                .AddSwaggerGen(options =>
+                {
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Project Hub", Version = "v1" });
+
+                    var docs = new[] {
+                        "ProjectHub.Api.xml",
+                        "ProjectHub.Data.xml",
+                        "ProjectHub.Domain.xml",
+                    };
+                    foreach (var doc in docs)
+                    {
+                        options.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, doc));
+                    }
+                })
+                .AddSwaggerGenNewtonsoftSupport();
 
             services.AddDbContext<HubContext>(
                 options => options
@@ -65,6 +78,8 @@ namespace ProjectHub.Api
                 .UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Project Hub API v1");
+                    options.DisplayRequestDuration();
+                    options.EnableFilter();
                 });
         }
     }

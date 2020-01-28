@@ -351,3 +351,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+src/ProjectHub.Api/ProjectHub.Api.xml
+
+src/ProjectHub.Data/ProjectHub.Data.xml
+
+src/ProjectHub.Domain/ProjectHub.Domain.xml
