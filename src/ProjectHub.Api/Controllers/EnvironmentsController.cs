@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using ProjectHub.Data;
 using ProjectHub.Domain.Environment;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProjectHub.Api.Controllers
 {
+    // TODO: currently I use fat controllers. It should be changed in the future. MR
     [ApiController]
     [Route("/api/environments")]
     public class EnvironmentsController : ControllerBase
@@ -30,6 +32,14 @@ namespace ProjectHub.Api.Controllers
             return await _context.Environments.FindAsync(environmentId);
         }
 
+        [HttpGet("{environmentId}/siteLinks")]
+        public async Task<IEnumerable<SiteLink>> GetLinks(int environmentId)
+        {
+            return await _context.SiteLinks
+                .Where(link => link.EnvironmentId == environmentId)
+                .ToListAsync();
+        }
+
         [HttpPut]
         public async Task<Environment> AddEnvironment([FromBody]Environment environment)
         {
@@ -48,7 +58,7 @@ namespace ProjectHub.Api.Controllers
             // TODO: validate before insert. MR
             _context.Environments.Update(environment);
             await _context.SaveChangesAsync();
-            
+
             return NoContent();
         }
 
