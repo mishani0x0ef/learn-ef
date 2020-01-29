@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectHub.Data;
+using ProjectHub.Data.Utils;
 using ProjectHub.Domain.Environment;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -43,6 +44,7 @@ namespace ProjectHub.Api.Controllers
         {
             // TODO: validate before insert. MR
             var result = _context.Environments.Add(environment);
+            
             await _context.SaveChangesAsync();
             return result.Entity;
         }
@@ -54,7 +56,10 @@ namespace ProjectHub.Api.Controllers
                 return BadRequest();
 
             // TODO: validate before insert. MR
-            _context.Environments.Update(environment);
+            _context.Environments
+                .Update(environment)
+                .UpdateLastModified();
+            
             await _context.SaveChangesAsync();
 
             return NoContent();

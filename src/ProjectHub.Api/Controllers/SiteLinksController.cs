@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectHub.Data;
+using ProjectHub.Data.Utils;
 using ProjectHub.Domain.Environment;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -36,7 +37,10 @@ namespace ProjectHub.Api.Controllers
             if (linkId != link.Id)
                 return BadRequest();
 
-            _context.SiteLinks.Update(link);
+            _context.SiteLinks
+                .Update(link)
+                .UpdateLastModified();
+
             await _context.SaveChangesAsync();
 
             return NoContent();

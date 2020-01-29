@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ProjectHub.Data.Utils;
 using ProjectHub.Domain.Common;
 using ProjectHub.Domain.Environment;
 using System.Collections.Generic;
@@ -30,6 +31,16 @@ namespace ProjectHub.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+                .Entity<Environment>()
+                .AddCreatedAtProperty()
+                .AddLastModifiedProperty();
+
+            modelBuilder
+                .Entity<SiteLink>()
+                .AddCreatedAtProperty()
+                .AddLastModifiedProperty();
+
             modelBuilder
                 .Entity<SiteLinkHashTag>()
                 .HasKey(sh => new { sh.SiteLinkId, sh.HashTagId });
