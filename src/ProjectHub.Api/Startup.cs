@@ -11,6 +11,7 @@ using System.IO;
 
 namespace ProjectHub.Api
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -83,4 +84,5 @@ namespace ProjectHub.Api
                 });
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

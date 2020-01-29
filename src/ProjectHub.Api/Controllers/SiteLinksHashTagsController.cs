@@ -9,17 +9,28 @@ using System.Threading.Tasks;
 
 namespace ProjectHub.Api.Controllers
 {
+    /// <summary>
+    /// Controller for managing hashtags for site links.
+    /// </summary>
     [ApiController]
     [Route("api/siteLinks")]
     public class SiteLinksHashTagsController : ControllerBase
     {
         private readonly HubContext _context;
 
+        /// <summary>
+        /// Create a controller instance.
+        /// </summary>
         public SiteLinksHashTagsController(HubContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Get all hashtags available for a specific link.
+        /// </summary>
+        /// <param name="linkId">Identity of the link to get tags for.</param>
+        /// <returns>Collection of tags.</returns>
         [HttpGet("{linkId}/hashtags")]
         public async Task<IEnumerable<HashTag>> GetHashTags(int linkId)
         {
@@ -32,6 +43,12 @@ namespace ProjectHub.Api.Controllers
             return link.GetHashTags();
         }
 
+        /// <summary>
+        /// Add tag to a specific link.
+        /// <para>If tag doesn't exist yet - it will be created.</para>
+        /// </summary>
+        /// <param name="linkId">Identity of the link to add tag to.</param>
+        /// <param name="tag">Tag that should be added to the link.</param>
         [HttpPost("{linkId}/hashtags")]
         public async Task<IActionResult> AddHashTag(int linkId, [FromBody]HashTag tag)
         {
@@ -42,6 +59,7 @@ namespace ProjectHub.Api.Controllers
             if (link is null)
                 return NotFound();
 
+            // TODO: maybe it's better to match tag by name rather then id. MR
             var tagAlreadyExists = link.SiteLinkHashTags
                 .Select(lt => lt.HashTagId)
                 .Contains(tag.Id);
@@ -61,6 +79,11 @@ namespace ProjectHub.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Remove tag from the link.
+        /// </summary>
+        /// <param name="linkId">Identity of the link to remove tag from.</param>
+        /// <param name="tagId">Identity of the tag to remove.</param>
         [HttpDelete("{linkId}/hashtags/{tagId}")]
         public async Task RemoveHashTag(int linkId, int tagId)
         {

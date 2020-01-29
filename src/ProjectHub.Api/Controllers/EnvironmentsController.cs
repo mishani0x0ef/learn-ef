@@ -9,12 +9,18 @@ using System.Threading.Tasks;
 namespace ProjectHub.Api.Controllers
 {
     // TODO: currently I use fat controllers. It should be changed in the future. MR
+    /// <summary>
+    /// Controller for manipulations with <see cref="Environment"/>.
+    /// </summary>
     [ApiController]
     [Route("api/environments")]
     public class EnvironmentsController : ControllerBase
     {
         private readonly HubContext _context;
 
+        /// <summary>
+        /// Create a new instance of the controller.
+        /// </summary>
         public EnvironmentsController(HubContext context)
         {
             _context = context;
@@ -30,7 +36,7 @@ namespace ProjectHub.Api.Controllers
         }
 
         /// <summary>
-        /// Get a specific environment by it's id.
+        /// Get a specific environment by it's unique identifier.
         /// </summary>
         /// <param name="environmentId">ID of the environment to retrieve.</param>
         [HttpGet("{environmentId}")]
@@ -39,6 +45,11 @@ namespace ProjectHub.Api.Controllers
             return await _context.Environments.FindAsync(environmentId);
         }
 
+        /// <summary>
+        /// Add new environment.
+        /// </summary>
+        /// <param name="environment">The environment to be added.</param>
+        /// <returns>Created environment including identity of newly created entity.</returns>
         [HttpPut]
         public async Task<Environment> AddEnvironment([FromBody]Environment environment)
         {
@@ -49,6 +60,11 @@ namespace ProjectHub.Api.Controllers
             return result.Entity;
         }
 
+        /// <summary>
+        /// Update an existing environment with new data.
+        /// </summary>
+        /// <param name="environmentId">Identity of the environment to be updated.</param>
+        /// <param name="environment">New data to update the environment.</param>
         [HttpPost("{environmentId}")]
         public async Task<IActionResult> UpdateEnvironment(int environmentId, [FromBody]Environment environment)
         {
@@ -65,6 +81,11 @@ namespace ProjectHub.Api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete an environment by it's identity.
+        /// </summary>
+        /// <param name="environmentId">Identity of the environment to be deleted.</param>
+        /// <returns>Details about the environment that was deleted.</returns>
         [HttpDelete("{environmentId}")]
         public async Task<ActionResult<Environment>> DeleteEnvironment(int environmentId)
         {
