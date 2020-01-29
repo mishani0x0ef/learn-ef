@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ProjectHub.Domain.Common;
 using ProjectHub.Domain.Environment;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ namespace ProjectHub.Data
     {
         public DbSet<Environment> Environments { get; set; }
         public DbSet<SiteLink> SiteLinks { get; set; }
+        public DbSet<HashTag> HashTags { get; set; }
 
         private static readonly ILoggerFactory LogFactory = LoggerFactory.Create(
             builder => builder

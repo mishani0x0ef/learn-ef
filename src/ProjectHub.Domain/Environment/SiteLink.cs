@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ProjectHub.Domain.Common;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ProjectHub.Domain.Environment
 {
@@ -36,5 +38,16 @@ namespace ProjectHub.Domain.Environment
         public Environment Environment { get; set; }
 
         public List<SiteLinkHashTag> SiteLinkHashTags { get; set; }
+
+        public SiteLink()
+        {
+            SiteLinkHashTags = new List<SiteLinkHashTag>();
+        }
+
+        /// <summary>
+        /// Get all attached hash tags to the current link.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<HashTag> GetHashTags() => SiteLinkHashTags.Select(x => x.HashTag);
     }
 }
