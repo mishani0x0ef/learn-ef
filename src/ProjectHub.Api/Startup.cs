@@ -1,13 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using ProjectHub.Data;
-using System.IO;
+using ProjectHub.Api.Config;
 
 namespace ProjectHub.Api
 {
@@ -32,27 +29,8 @@ namespace ProjectHub.Api
                 });
 
             services
-                .AddSwaggerGen(options =>
-                {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Project Hub", Version = "v1" });
-
-                    var docs = new[] {
-                        "ProjectHub.Api.xml",
-                        "ProjectHub.Data.xml",
-                        "ProjectHub.Domain.xml",
-                    };
-                    foreach (var doc in docs)
-                    {
-                        options.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, doc));
-                    }
-                })
-                .AddSwaggerGenNewtonsoftSupport();
-
-            services.AddDbContext<HubContext>(
-                options => options
-                    .EnableSensitiveDataLogging()
-                    .UseSqlServer(Configuration.GetConnectionString("HubConnection"))
-            );
+                .AddPreConfiguredSwagger()
+                .AddPreConfiguredDbContext(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,9 +42,7 @@ namespace ProjectHub.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -74,14 +50,7 @@ namespace ProjectHub.Api
                 endpoints.MapControllers();
             });
 
-            app
-                .UseSwagger()
-                .UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Project Hub API v1");
-                    options.DisplayRequestDuration();
-                    options.EnableFilter();
-                });
+            app.UsePreConfiguredSwaggerWithUI();
         }
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
