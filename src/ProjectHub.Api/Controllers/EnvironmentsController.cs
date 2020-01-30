@@ -46,6 +46,19 @@ namespace ProjectHub.Api.Controllers
         }
 
         /// <summary>
+        /// Get an environment that was added latest.
+        /// It's quite synthetic method just for EF concepts testing.
+        /// TODO: remove in the future.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("latest")]
+        public async Task<Environment> GetLatestEnvironment()
+        {
+            return await _context.Environments
+                .FirstOrDefaultAsync(e => e.Id == _context.GetLatestEnvironment());
+        }
+
+        /// <summary>
         /// Add new environment.
         /// </summary>
         /// <param name="environment">The environment to be added.</param>

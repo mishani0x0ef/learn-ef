@@ -24,6 +24,12 @@ namespace ProjectHub.Data
         {
         }
 
+        [DbFunction]
+        public int GetLatestEnvironment()
+        {
+            throw new System.Exception("Current method is for internal Entity Framework usage.");
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(LogFactory);
