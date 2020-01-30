@@ -46,6 +46,16 @@ namespace ProjectHub.Api.Controllers
         }
 
         /// <summary>
+        /// Get extended info about the environment by it's identifier.
+        /// </summary>
+        /// <param name="environmentId">ID of the environment to retrieve</param>
+        [HttpGet("{environmentId}/details")]
+        public async Task<EnvironmentDetails> GetEnvironmentDetails(int environmentId)
+        {
+            return await _context.EnvironmentDetails.FirstOrDefaultAsync(e => e.Id == environmentId);
+        }
+
+        /// <summary>
         /// Get an environment that was added latest.
         /// It's quite synthetic method just for EF concepts testing.
         /// TODO: remove in the future.

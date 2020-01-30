@@ -10,6 +10,7 @@ namespace ProjectHub.Data
     public class HubContext : DbContext
     {
         public DbSet<Environment> Environments { get; set; }
+        public DbQuery<EnvironmentDetails> EnvironmentDetails { get; set; }
         public DbSet<SiteLink> SiteLinks { get; set; }
         public DbSet<HashTag> HashTags { get; set; }
 
@@ -41,6 +42,11 @@ namespace ProjectHub.Data
                 .Entity<Environment>()
                 .AddCreatedAtProperty()
                 .AddLastModifiedProperty();
+
+            modelBuilder
+                .Entity<EnvironmentDetails>()
+                .HasNoKey()
+                .ToView("EnvironmentDetails");
 
             modelBuilder
                 .Entity<SiteLink>()
