@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule, MatSlideToggleModule } from '@angular/material';
 import { BaseComponentsModule } from './shared/modules/base-components.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,15 @@ import { BaseComponentsModule } from './shared/modules/base-components.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+
     MatSlideToggleModule,
     MatToolbarModule,
 
     BaseComponentsModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

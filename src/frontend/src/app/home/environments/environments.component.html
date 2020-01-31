@@ -1,1 +1,7 @@
-<app-section title="Environments" description="Select environment which you want to explore."></app-section>
+<app-section title="Environments" description="Select environment which you want to explore.">
+
+    <ng-container *ngFor="let environment of $environments | async">
+        <div>{{environment.name}}</div>
+    </ng-container>
+
+</app-section>

@@ -9,6 +9,8 @@ import { isEmpty } from 'lodash';
         <h2>{{title}}</h2>
         <div class="section__separator"></div>
         <h4 *ngIf="hasDescription">{{description}}</h4>
+
+        <ng-content></ng-content>
     <div>
     `
 })

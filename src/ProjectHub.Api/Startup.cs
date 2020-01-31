@@ -22,6 +22,7 @@ namespace ProjectHub.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddPreConfigureCors()
                 .AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
@@ -41,6 +42,7 @@ namespace ProjectHub.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UsePreConfiguredCors(env);
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
