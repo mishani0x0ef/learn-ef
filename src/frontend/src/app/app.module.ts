@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule, MatSlideToggleModule } from '@angular/material';
+import { BaseComponentsModule } from './shared/modules/base-components.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import { MatToolbarModule, MatSlideToggleModule } from '@angular/material';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatToolbarModule,
+
+    BaseComponentsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
