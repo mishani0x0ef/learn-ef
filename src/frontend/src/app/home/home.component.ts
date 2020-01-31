@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PageComponent } from '../shared/base';
+import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends PageComponent {
+    protected get initialTitle(): string {
+        return 'Hub - Home';
+    }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    constructor(titleService: Title) {
+        super(titleService);
+    }
 }
