@@ -1,7 +1,11 @@
 <app-section title="Environments" description="Select environment which you want to explore.">
 
-    <ng-container *ngFor="let environment of $environments | async">
-        <div>{{environment.name}}</div>
-    </ng-container>
+    <div class="columns is-multiline">
+        <div class="column is-3" *ngFor="let environment of $environments | async">
+
+            <app-environment-card [environment]="environment"></app-environment-card>
+
+        </div>
+    </div>
 
 </app-section>

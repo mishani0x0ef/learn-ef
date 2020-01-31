@@ -6,12 +6,15 @@ import { HomeComponent } from './home.component';
 import { BaseComponentsModule } from '../shared/modules/base-components.module';
 import { EnvironmentsComponent } from './environments/environments.component';
 import { EnvironmentService } from './environments/services/environment.service';
+import { MatCardModule, MatButtonModule } from '@angular/material';
+import { EnvironmentCardComponent } from './environment-card/environment-card.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     EnvironmentsComponent,
+    EnvironmentCardComponent,
   ],
   providers: [
     EnvironmentService,
@@ -19,6 +22,9 @@ import { EnvironmentService } from './environments/services/environment.service'
   imports: [
     CommonModule,
     HomeRoutingModule,
+
+    MatButtonModule,
+    MatCardModule,
 
     BaseComponentsModule,
   ]
