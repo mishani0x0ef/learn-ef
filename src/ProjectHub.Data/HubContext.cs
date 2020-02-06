@@ -16,7 +16,12 @@ namespace ProjectHub.Data
 
         private static readonly ILoggerFactory LogFactory = LoggerFactory.Create(
             builder => builder
-                .AddFilter((category, level) => category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information)
+                .AddFilter((category, level) =>
+                {
+                    var isCommand = category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information;
+                    var isChangeTracking = category == DbLoggerCategory.ChangeTracking.Name;
+                    return isCommand || isChangeTracking;
+                })
                 .AddConsole()
                 .AddDebug()
             );
